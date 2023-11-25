@@ -1,0 +1,1 @@
+docker run --rm -td -v $(pwd)/JerryResults:/JerryResults jerry 

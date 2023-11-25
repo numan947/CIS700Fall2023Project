@@ -15,7 +15,7 @@ ENV USEDPYTHON=python3.10
 RUN wget https://download.swift.org/swift-5.7-release/ubuntu2204/swift-5.7-RELEASE/swift-5.7-RELEASE-ubuntu22.04.tar.gz
 RUN tar -xvzf swift-5.7-RELEASE-ubuntu22.04.tar.gz
 ENV PATH="/swift-5.7-RELEASE-ubuntu22.04/usr/bin:${PATH}"
-RUN git clone https://github.com/SpaceNaN/fuzzjit.git
+RUN git clone https://github.com/numan947/fuzzjit.git
 WORKDIR /fuzzjit
 RUN swift build -c release
 RUN swift run FuzzilliCli --help
@@ -33,5 +33,9 @@ RUN apt-get install libatk-bridge2.0-dev -y
 WORKDIR /JerryScript
 RUN git checkout 8ba0d1b6ee5a065a42f3b306771ad8e3c0d819bc
 RUN patch  -p1 < /fuzzjit/Targets/Jerryscript/Patches/jerryscript.patch
-# RUN chmod +x /fuzzjit/Targets/Jerryscript/fuzzbuild.sh
-# RUN /fuzzjit/Targets/ChakraCore/fuzzbuild.sh
+RUN chmod +x /fuzzjit/Targets/Jerryscript/fuzzbuild.sh
+RUN /fuzzjit/Targets/Jerryscript/fuzzbuild.sh
+
+WORKDIR /fuzzjit
+CMD swift run -c release FuzzilliCli --profile=jerryscript --timeout=500 --storagePath=/JerryResults /JerryScript/build/bin/jerry
+# CMD swift run -c release FuzzilliCli --profile=jerryscript --timeout=500 --storagePath=./jerryscript /JerryScript/

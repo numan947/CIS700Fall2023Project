@@ -15,7 +15,7 @@ ENV USEDPYTHON=python3.10
 RUN wget https://download.swift.org/swift-5.7-release/ubuntu2204/swift-5.7-RELEASE/swift-5.7-RELEASE-ubuntu22.04.tar.gz
 RUN tar -xvzf swift-5.7-RELEASE-ubuntu22.04.tar.gz
 ENV PATH="/swift-5.7-RELEASE-ubuntu22.04/usr/bin:${PATH}"
-RUN git clone https://github.com/SpaceNaN/fuzzjit.git
+RUN git clone https://github.com/numan947/fuzzjit.git
 WORKDIR /fuzzjit
 RUN swift build -c release
 RUN swift run FuzzilliCli --help
