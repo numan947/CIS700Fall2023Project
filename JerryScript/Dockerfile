@@ -37,5 +37,5 @@ RUN chmod +x /fuzzjit/Targets/Jerryscript/fuzzbuild.sh
 RUN /fuzzjit/Targets/Jerryscript/fuzzbuild.sh
 
 WORKDIR /fuzzjit
-CMD swift run -c release FuzzilliCli --profile=jerryscript --timeout=500 --storagePath=/JerryResults /JerryScript/build/bin/jerry
+CMD swift run -c release FuzzilliCli --profile=jerryscript --timeout=1500 --storagePath=/JerryResults /JerryScript/build/bin/jerry
 # CMD swift run -c release FuzzilliCli --profile=jerryscript --timeout=500 --storagePath=./jerryscript /JerryScript/

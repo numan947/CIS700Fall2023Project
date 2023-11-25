@@ -1,1 +1,1 @@
-chown -R $1:$1 $(pwd)/JerryResults
+chown -R $1:$1 $(pwd)/MonkeyRes

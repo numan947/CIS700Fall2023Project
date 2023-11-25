@@ -12,3 +12,7 @@
 *.box
 
 # End of https://www.toptal.com/developers/gitignore/api/vagrant
+JSCore/JSCoreResults/
+JerryScript/JerryResults/
+V8/V8Res/
+SpiderMonkey/MonkeyRes/

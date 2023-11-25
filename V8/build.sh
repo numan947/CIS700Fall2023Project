@@ -1,1 +1,1 @@
-docker build -t jerry .
+docker build -t v8 .

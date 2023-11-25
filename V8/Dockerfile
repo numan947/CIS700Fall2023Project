@@ -32,3 +32,5 @@ RUN apt-get install libgtk-3-dev -y
 RUN apt-get install libatk-bridge2.0-dev -y
 WORKDIR /v8/v8
 RUN /fuzzjit/Targets/V8/fuzzbuild.sh
+WORKDIR /fuzzjit
+CMD swift run -c release FuzzilliCli --profile=v8 --timeout=1500 --storagePath=/V8Res /v8/v8/out/fuzzbuild/d8

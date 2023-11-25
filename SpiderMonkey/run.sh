@@ -1,1 +1,1 @@
-docker run --rm -td -v $(pwd)/JerryResults:/JerryResults jerry 
+docker run --rm -td -v $(pwd)/MonkeyRes:/MonkeyRes monkey 

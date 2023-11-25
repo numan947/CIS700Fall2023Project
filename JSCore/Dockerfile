@@ -30,3 +30,4 @@ RUN chmod +x /fuzzjit/Targets/JavaScriptCore/fuzzbuild.sh
 RUN /fuzzjit/Targets/JavaScriptCore/fuzzbuild.sh
 
 WORKDIR /fuzzjit
+CMD swift run -c release FuzzilliCli --profile=jsc --timeout=1500 --storagePath=/JSCoreResults/ /WebKit/FuzzBuild/Debug/bin/jsc

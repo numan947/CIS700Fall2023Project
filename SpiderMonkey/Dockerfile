@@ -26,4 +26,6 @@ WORKDIR /
 RUN git clone https://github.com/mozilla/gecko-dev.git /SpiderMonkey
 WORKDIR /SpiderMonkey
 RUN git checkout defeab22356a2ff5dd5f35612a561ce020a0fb4a
-# RUN /fuzzjit/Targets/Spidermonkey/fuzzbuild.sh
+RUN /fuzzjit/Targets/Spidermonkey/fuzzbuild.sh
+WORKDIR /fuzzjit
+CMD swift run -c release FuzzilliCli --profile=spidermonkey --timeout=1500 --storagePath=/MonkeyRes /SpiderMonkey/obj-fuzzbuild/dist/bin/js
