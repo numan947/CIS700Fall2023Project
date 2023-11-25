@@ -19,18 +19,19 @@ RUN git clone https://github.com/SpaceNaN/fuzzjit.git
 WORKDIR /fuzzjit
 RUN swift build -c release
 RUN swift run FuzzilliCli --help
+RUN apt install -y cmake ruby clang rustc cargo llvm pkg-config m4
+
 
 WORKDIR /
 # WORKDIR /fuzzing/
-RUN wget -O  /ChakraCore.tar.gz https://github.com/chakra-core/ChakraCore/archive/refs/tags/v1.11.24.tar.gz?raw=true
-RUN tar -xvzf ChakraCore.tar.gz
-RUN mv ChakraCore-1.11.24/ ChakraCore/
-RUN apt install -y cmake ruby clang python2
+RUN git clone https://github.com/jerryscript-project/jerryscript.git /JerryScript
+RUN apt install -y cmake ruby python2
 RUN ln -s /usr/bin/python2 /usr/bin/python
 RUN apt-get install libglib2.0-dev -y
 RUN apt-get install libgtk-3-dev -y
 RUN apt-get install libatk-bridge2.0-dev -y
-WORKDIR /ChakraCore 
-RUN patch  -p1 < /fuzzjit/Targets/ChakraCore/ch.patch
-RUN chmod +x /fuzzjit/Targets/ChakraCore/fuzzbuild.sh
-RUN /fuzzjit/Targets/ChakraCore/fuzzbuild.sh
+WORKDIR /JerryScript
+RUN git checkout 8ba0d1b6ee5a065a42f3b306771ad8e3c0d819bc
+RUN patch  -p1 < /fuzzjit/Targets/Jerryscript/Patches/jerryscript.patch
+# RUN chmod +x /fuzzjit/Targets/Jerryscript/fuzzbuild.sh
+# RUN /fuzzjit/Targets/ChakraCore/fuzzbuild.sh
