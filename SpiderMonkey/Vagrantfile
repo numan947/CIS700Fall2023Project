@@ -8,7 +8,8 @@ Vagrant.configure("2") do |config|
 	# install docker and docker-compose
 	config.vm.provision :docker
 	config.vm.provision :docker_compose
-  
+	config.vm.provision :shell, :inline => "sysctl -w 'kernel.core_pattern=|/bin/false'", :run=> "always", :privileged => true  
+
 	config.vm.provider "virtualbox" do |vb|
 	  vb.customize ["modifyvm", :id, "--ioapic", "on"]
 	  vb.customize ["modifyvm", :id, "--memory", "2048"]

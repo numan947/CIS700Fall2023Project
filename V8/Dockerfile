@@ -19,13 +19,16 @@ RUN git clone https://github.com/SpaceNaN/fuzzjit.git
 WORKDIR /fuzzjit
 RUN swift build -c release
 RUN swift run FuzzilliCli --help
-
-WORKDIR /
-# WORKDIR /fuzzing/
-RUN wget -O  /WebKit-7614.3.4.11.2.tar.gz https://github.com/WebKit/WebKit/archive/refs/tags/WebKit-7614.3.4.11.2.tar.gz?raw=true
-RUN tar -xvzf WebKit-7614.3.4.11.2.tar.gz
-RUN mv WebKit-WebKit-7614.3.4.11.2/ WebKit/
-WORKDIR /WebKit
 RUN apt install -y cmake ruby clang
-RUN patch  -p1 < /fuzzjit/Targets/JavaScriptCore/Patches/webkit.patch 
-RUN /fuzzjit/Targets/JavaScriptCore/fuzzbuild.sh
+WORKDIR /
+RUN git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+ENV PATH="/depot_tools:${PATH}"
+RUN mkdir /v8
+WORKDIR /v8
+RUN gclient config https://chromium.googlesource.com/v8/v8
+RUN gclient sync
+RUN apt-get install libglib2.0-dev -y
+RUN apt-get install libgtk-3-dev -y
+RUN apt-get install libatk-bridge2.0-dev -y
+WORKDIR /v8/v8
+RUN /fuzzjit/Targets/V8/fuzzbuild.sh

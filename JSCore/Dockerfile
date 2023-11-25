@@ -19,13 +19,12 @@ RUN git clone https://github.com/SpaceNaN/fuzzjit.git
 WORKDIR /fuzzjit
 RUN swift build -c release
 RUN swift run FuzzilliCli --help
-
-WORKDIR /
-# WORKDIR /fuzzing/
-RUN wget -O  /WebKit-7614.3.4.11.2.tar.gz https://github.com/WebKit/WebKit/archive/refs/tags/WebKit-7614.3.4.11.2.tar.gz?raw=true
-RUN tar -xvzf WebKit-7614.3.4.11.2.tar.gz
-RUN mv WebKit-WebKit-7614.3.4.11.2/ WebKit/
-WORKDIR /WebKit
 RUN apt install -y cmake ruby clang
+WORKDIR /
+
+RUN git clone https://github.com/WebKit/WebKit.git /WebKit
+WORKDIR /WebKit
+RUN git checkout f003c2e7452c4e83aefc524c254c7ab7760e8ef8
 RUN patch  -p1 < /fuzzjit/Targets/JavaScriptCore/Patches/webkit.patch 
+RUN chmod +x /fuzzjit/Targets/JavaScriptCore/fuzzbuild.sh
 RUN /fuzzjit/Targets/JavaScriptCore/fuzzbuild.sh
